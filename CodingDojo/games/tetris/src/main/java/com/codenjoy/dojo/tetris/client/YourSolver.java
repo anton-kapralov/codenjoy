@@ -168,6 +168,8 @@ public class YourSolver extends AbstractJsonSolver<Board> {
 
   private Point[] getFigurePoints(GlassBoard glass, Elements element, Point point) {
     switch (element) {
+      case BLUE:
+        return getBluePoints(glass, point);
       case YELLOW:
       default:
         return getYellowPoints(glass, point);
@@ -213,6 +215,19 @@ public class YourSolver extends AbstractJsonSolver<Board> {
     points[2].move(point.getX(), point.getY() - 1);
     points[3] = point.copy();
     points[3].move(point.getX() + 1, point.getY() - 1);
+    return points;
+  }
+
+  private Point[] getBluePoints(GlassBoard glass, Point point) {
+    Point[] points = new Point[4];
+    points[0] = point.copy();
+    points[0].move(point.getX(), point.getY() - 1);
+    points[1] = point.copy();
+    points[1].move(point.getX(), point.getY() - 2);
+    points[2] = point.copy();
+    points[2].move(point.getX(), point.getY() - 3);
+    points[3] = point.copy();
+    points[3].move(point.getX(), point.getY() - 4);
     return points;
   }
 
