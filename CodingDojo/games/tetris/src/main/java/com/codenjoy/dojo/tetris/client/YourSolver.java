@@ -88,25 +88,30 @@ public class YourSolver extends AbstractJsonSolver<Board> {
 
   @Override
   public String getAnswer(Board board) {
-    Position position = findBestPosition(board);
-    if (position == null) {
+    try {
+      Position position = findBestPosition(board);
+      if (position == null) {
+        return Direction.DOWN.name();
+      }
+
+      int dx = position.getX() - board.getCurrentFigurePoint().getX();
+      if (dx == 0) {
+        return Direction.DOWN.name();
+      }
+
+      StringBuilder sb = new StringBuilder();
+      Direction direction = dx > 0 ? Direction.RIGHT : Direction.LEFT;
+      for (int i = 0; i < Math.abs(dx); i++) {
+        sb.append(direction);
+        sb.append(',');
+      }
+      sb.append(Direction.DOWN.name());
+
+      return sb.toString();
+    } catch (Exception e) {
+      e.printStackTrace();
       return Direction.DOWN.name();
     }
-
-    int dx = position.getX() - board.getCurrentFigurePoint().getX();
-    if (dx == 0) {
-      return Direction.DOWN.name();
-    }
-
-    StringBuilder sb = new StringBuilder();
-    Direction direction = dx > 0 ? Direction.RIGHT : Direction.LEFT;
-    for (int i = 0; i < Math.abs(dx); i++) {
-      sb.append(direction);
-      sb.append(',');
-    }
-    sb.append(Direction.DOWN.name());
-
-    return sb.toString();
   }
 
   private Position findBestPosition(Board board) {
