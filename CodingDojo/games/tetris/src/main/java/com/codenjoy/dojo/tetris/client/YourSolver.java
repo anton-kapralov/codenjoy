@@ -51,7 +51,7 @@ public class YourSolver extends AbstractJsonSolver<Board> {
     public static void main(String[] args) {
         WebSocketRunner.runClient(
                 // paste here board page url from browser after registration
-                "http://codenjoy.com:80/codenjoy-contest/board/player/3edq63tw0bq4w4iem7nb?code=1234567890123456789",
+                "http://codenjoy.mgo.one/codenjoy-contest/board/player/ffpdgizn8glxd5qbjz48?code=3423212880424965051",
                 new YourSolver(new RandomDice()),
                 new Board());
     }
