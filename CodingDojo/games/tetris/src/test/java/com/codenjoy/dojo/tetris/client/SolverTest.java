@@ -10,12 +10,12 @@ package com.codenjoy.dojo.tetris.client;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
@@ -36,41 +36,74 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class SolverTest {
 
-    private Dice dice;
-    private Solver ai;
+  private Dice dice;
+  private Solver ai;
 
-    @Before
-    public void setup() {
-        dice = mock(Dice.class);
-        ai = new YourSolver(dice);
-    }
+  @Before
+  public void setup() {
+    dice = mock(Dice.class);
+    ai = new YourSolver(dice);
+  }
 
-    @Test
-    public void should() {
-        asertAI("......." +
-                "......I" +
-                "..LL..I" +
-                "...LI.I" +
-                ".SSLI.I" +
-                "SSOOIOO" +
-                "..OOIOO",
-                "T",
-                pt(1, 2),
-                new String[] {"I", "O", "L", "Z"},
-                Direction.DOWN);
-    }
+  @Test
+  public void should() {
+    asertAI("......." +
+            "......I" +
+            "..LL..I" +
+            "...LI.I" +
+            ".SSLI.I" +
+            "SSOOIOO" +
+            "..OOIOO",
+        "T",
+        pt(1, 2),
+        new String[]{"I", "O", "L", "Z"},
+        Direction.DOWN);
+  }
 
-    private void asertAI(String glass, String figureType,
-                         Point point, String[] futureFigures,
-                         Direction expected)
-    {
-        String actual = ai.get(BoardTest.getBoard(glass, figureType, point, futureFigures));
-        assertEquals(expected.toString(), actual);
-    }
+  @Test
+  public void test2() {
+    asertAI(".................." +
+            ".................." +
+            ".................." +
+            ".................." +
+            ".................." +
+            ".................." +
+            ".................." +
+            ".................." +
+            ".................." +
+            ".................." +
+            ".................." +
+            ".................." +
+            ".................." +
+            ".................." +
+            ".................." +
+            ".................." +
+            "OO................" +
+            "OO................",
+            "O",
+        pt(8, 17),
+        new String[]{"I", "O", "L", "Z"},
+        "LEFT,LEFT,LEFT,LEFT,LEFT,LEFT,DOWN");
+  }
 
-    private void dice(Direction direction) {
-        when(dice.next(anyInt())).thenReturn(direction.value());
-    }
+  private void asertAI(String glass, String figureType,
+      Point point, String[] futureFigures,
+      Direction expected) {
+    String actual = ai.get(BoardTest.getBoard(glass, figureType, point, futureFigures));
+    assertEquals(expected.toString(), actual);
+  }
+
+  private void asertAI(String glass, String figureType,
+      Point point, String[] futureFigures,
+        String expected) {
+    String actual = ai.get(BoardTest.getBoard(glass, figureType, point, futureFigures));
+    assertEquals(expected.toString(), actual);
+  }
+
+  private void dice(Direction direction) {
+    when(dice.next(anyInt())).thenReturn(direction.value());
+  }
 }
